@@ -4,11 +4,13 @@ function App() {
   const [showAuthor, setShowAuthor] = useState(false);
 
   // Dummy data
-  const article = {
-    title: "My First Article",
-    content: "This is some sample content for the article.",
-    author: "John Doe",
-  };
+const [article, setArticle] = useState({
+  title: "My First Article",
+  content: "This is some sample content for the article.",
+  author: "John Doe",
+  selectedReaction: null,
+});
+
 
   const author = {
     name: article.author,
@@ -37,6 +39,24 @@ function App() {
               {article.author}
             </span>
           </p>
+          <div style={{ marginTop: "20px" }}>
+  <p>Reactions:</p>
+  {["Like", "Love", "Wow"].map((r) => (
+    <button
+      key={r}
+      style={{
+        marginRight: "10px",
+        backgroundColor: article.selectedReaction === r ? "lightblue" : "white",
+      }}
+      onClick={() =>
+        setArticle({ ...article, selectedReaction: r })
+      }
+    >
+      {r}
+    </button>
+  ))}
+</div>
+
         </div>
       )}
     </div>
