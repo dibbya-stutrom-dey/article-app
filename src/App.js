@@ -34,7 +34,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 3;
 
-  const allComments = {
+  const [allComments, setAllComments] = useState({
     1: comments,
     2: [
       {
@@ -58,19 +58,20 @@ function App() {
         selectedReaction: null
       }
     ]
-  };
+  });
 
   const author = {
     name: article.author,
     image: "https://media.gettyimages.com/id/495401712/photo/good-morning-america-author-of-contemporary-horror-stephen-king-is-a-guest-on-good-morning.jpg?s=612x612&w=0&k=20&c=LBOphofMBRqYHC6LTsci7wzf64GlQhITNQuBUvDv9tI=", // placeholder image
   };
   const handleCommentReaction = (commentId, reaction) => {
-    // Simple fix: just update the display for current session
-    allComments[currentPage] = allComments[currentPage].map(comment =>
+    const updatedAllComments = { ...allComments };
+    updatedAllComments[currentPage] = allComments[currentPage].map(comment =>
       comment.id === commentId
         ? { ...comment, selectedReaction: reaction }
         : comment
     );
+    setAllComments(updatedAllComments);
   };
 
   return (
